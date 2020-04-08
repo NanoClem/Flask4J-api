@@ -4,7 +4,7 @@ This project uses the Python [Flask](https://flask.palletsprojects.com/en/1.1.x)
 
 ## Installation
 
-**A Dockerfile and docker-composer should come up soon**
+**A Dockerfile and docker-composer should come up soon. For now, follow instructions bellow.**
 
 If you don't have Python installed yet, [get it here](https://www.python.org/downloads)  
 I recommend you to use the package manager [pip](https://pip.pypa.io/en/stable/) to setup a virtual environment. I personnaly used [virtualenv](https://virtualenv.pypa.io/en/latest), but you're free to choose one that suits you best.  
