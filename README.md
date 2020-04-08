@@ -1,5 +1,5 @@
 # Flask4J-api
-A REST API using Neo4j as database agent to interact with data contained in graphs.  
+A REST API using [Neo4j](https://pypi.org/project/neo4j) as database agent to interact with data contained in graphs.  
 This project uses the Python [Flask](https://flask.palletsprojects.com/en/1.1.x) environment and furthermore [Flask-restplus](https://flask-restplus.readthedocs.io/en/stable/index.html) to perform http requests.  
 
 ## Installation
