@@ -58,12 +58,14 @@ class NodeDAO(object):
     #---------------------------------------------
 
     def create_node(self, node):
-        """ Create a new node
+        """ Create a Node. \n
+        Behaves like a 'put' if the payload matches exsisting nodes. 
+        In that case, it will merge with each one of them.
         """
         str_q = ( list_to_neo4jlabels(node['labels']), dict_to_neo4jstr(node['properties']) )
         res = self.db.run('MERGE (n:%s %s) RETURN n' % str_q)
 
-        return jsonify( [serialize_node(r['n']) for r in res][0] )
+        return jsonify( [serialize_node(r['n']) for r in res] )
 
 
     def create_many(self, nodes):
