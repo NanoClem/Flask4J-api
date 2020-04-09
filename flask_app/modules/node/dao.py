@@ -49,7 +49,7 @@ class NodeDAO(object):
     def get_by_id(self, id):
         """ Get a node by its id in the graph
         """
-        res = self.db.run('MATCH (n) WHERE ID(n) = {}'.format(id))
+        res = self.db.run('MATCH (n) WHERE ID(n) = {} RETURN n'.format(id))
         return jsonify( [serialize_node(r['n']) for r in res][0] )
 
 
