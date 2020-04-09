@@ -1,7 +1,7 @@
 from flask import Flask
 
 from .extensions import neo4j_driver
-from neo4j_app.modules.api import register_api
+from flask_app.modules.api import register_api
 
 
 
@@ -13,7 +13,7 @@ def get_db():
 
 
 # CREATE FLASK APP
-def create_app(config_object='neo4j_app.settings'):
+def create_app(config_object='flask_app.settings'):
     """ Instanciate a Flask app
 
     Parameters
