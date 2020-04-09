@@ -3,9 +3,9 @@ from flask_restplus import Api
 
 # API constructor
 api = Api(
-    title = "French municipalities API",
-    description = "Interact with data of french municipalities",
-    version = 1.0,
+    title = "Flask x Neo4j API",
+    description = "Interact with data contained in graphs",
+    version = 1.0
 )
 
 
