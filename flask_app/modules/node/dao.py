@@ -50,7 +50,7 @@ class NodeDAO(object):
         """ Get a node by its id in the graph
         """
         res = self.db.run('MATCH (n) WHERE ID(n) = {} RETURN n'.format(id))
-        return jsonify( [serialize_node(r['n']) for r in res][0] )
+        return jsonify( [serialize_node(r['n']) for r in res] )
 
 
     #---------------------------------------------
@@ -91,7 +91,7 @@ class NodeDAO(object):
         """
         str_q = (list_to_neo4jlabels(node['labels']), dict_to_neo4jstr(node['properties']))
         query = "MATCH (n:%s %s) DETACH DELETE n" % str_q
-        self.db.run(query, parameters={'properties': node['properties']})
+        self.db.run(query)
 
         return ''
 
