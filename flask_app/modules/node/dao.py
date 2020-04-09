@@ -18,6 +18,9 @@ class NodeDAO(object):
         self.ns = namespace
 
 
+    #---------------------------------------------
+    #   GET
+    #---------------------------------------------
 
     def get_all(self):
         """ Get all nodes in graph
@@ -26,24 +29,21 @@ class NodeDAO(object):
         return jsonify( [serialize_node(record['n']) for record in res] )
 
 
-
     def get_node(self, node):
-        """ Get a specific node
+        """ Get one or many nodes matching with payload
         """
         str_q = (list_to_neo4jlabels(node['labels']), dict_to_neo4jstr(node['properties']))
         query = "MATCH (n:%s %s) RETURN n" % str_q
         res = self.db.run(query)
 
-        return jsonify( [serialize_node(r['n']) for r in res][0] )
-
+        return jsonify( [serialize_node(r['n']) for r in res] )
 
 
     def get_by_label(self, label):
-        """ Get all nodes in graph
+        """ Get all labelled nodes in graph
         """
         res = self.db.run('MATCH (n:%s) RETURN n' % label)
-        return jsonify( list(serialize_node(record['n']) for record in res) )
-
+        return jsonify( [serialize_node(record['n']) for record in res] )
 
 
     def get_by_id(self, id):
@@ -53,6 +53,9 @@ class NodeDAO(object):
         return jsonify( [serialize_node(r['n']) for r in res][0] )
 
 
+    #---------------------------------------------
+    #   CREATE
+    #---------------------------------------------
 
     def create_node(self, node):
         """ Create a new node
@@ -63,11 +66,10 @@ class NodeDAO(object):
         return jsonify( [serialize_node(r['n']) for r in res][0] )
 
 
-
     def create_many(self, nodes):
+        """ Create many nodes at all once
         """
-        """
-        if not nodes:
+        if not nodes: 
             self.ns.abort(422, {'message': 'Can\'t process body'})
 
         ret = []
@@ -78,16 +80,18 @@ class NodeDAO(object):
         return jsonify(ret)
 
 
+    #---------------------------------------------
+    #   DELETE
+    #---------------------------------------------
     
     def delete_node(self, node):
-        """ Delete a node and remove all its relationships
+        """ Delete one or many nodes matching with payload, and remove all its/their relationships
         """
         str_q = (list_to_neo4jlabels(node['labels']), dict_to_neo4jstr(node['properties']))
         query = "MATCH (n:%s %s) DETACH DELETE n" % str_q
         self.db.run(query, parameters={'properties': node['properties']})
 
         return ''
-
 
 
     def delete_by_label(self, label):
@@ -97,7 +101,6 @@ class NodeDAO(object):
         self.db.run(query)
 
         return ''
-
 
 
     def delete_by_id(self, id):
