@@ -6,7 +6,7 @@ def create_node_model(ns):
     """
     model = ns.model('Node', {
         'id' : fields.Integer(description='node unique identifier in the graph'),
-        'labels' : fields.List(fields.String(required=True, description='node labels')),
+        'labels' : fields.List(fields.String(), required=True, description='node labels'),
         'properties' : fields.Raw(required=True, description='Node properties')
     })
     return model

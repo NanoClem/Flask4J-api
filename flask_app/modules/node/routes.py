@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask import make_response
 from flask_restplus import Resource
 
@@ -71,7 +69,7 @@ class Node(Resource):
 
 
 #---------------------------------------------
-#   CRUD BY ID
+#   NODES BY ID
 #---------------------------------------------
 
 @ns.route("/<int:id>")
@@ -91,28 +89,28 @@ class NodeByID(Resource):
 
 
 #---------------------------------------------
-#   CRUD BY LABEL
+#   NODES BY LABEL
 #---------------------------------------------
 
 @ns.route("/<string:label>")
 @ns.response(404, 'Labels not found')
 @ns.param('label', 'label of a node')
 class NodeLabel(Resource):
-    """ Show a single node, update one, or delete one by its label
+    """ Get, update or delete one or many nodes by its/their label
     """
 
-    @ns.doc('get_univ_by_label')
+    @ns.doc('get_node_by_label')
     @ns.response(200, 'Success')
     #@ns.marshal_with(node_model)
     def get(self, label):
-        """ Returns a single node by its label
+        """ Get all nodes labeled as param
         """
         return make_response(DAO.get_by_label(label), 200)
 
 
-    @ns.doc('delete_all_labeled')
+    @ns.doc('delete_labeled_node')
     @ns.response(204, 'Nodes successfuly deleted with their relationships')
     def delete(self, label):
-        """ Delete all nodes labeled with param
+        """ Delete all nodes labeled as param
         """
         return make_response(DAO.delete_by_label(label), 204)
